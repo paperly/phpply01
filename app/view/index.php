@@ -18,14 +18,35 @@
     <![endif]-->
   </head>
   <body>
+       <div class="container">
    <div class="page-header">
   <h1>index.php <small>Timeline</small></h1>
 </div>
-    
+   
       
-      <div class="well well-lg">newsest posts</div>
+      <div class="well well-lg">
+          <p>Hallo Hallo!! Hier bekommt ihr einen Überblick über alles</p>
+      </div>
 
-      
+     <form>
+  
+  <div class="form-group">
+    <label for="content">Content</label>
+    <textarea class="form-control" rows="3"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputFile">File input</label>
+    <input type="file" id="picture">
+    <p class="help-block">Picture here.</p>
+  </div>
+         <div class="form-group">
+             <button type="submit" class="btn btn-default">Submit</button>
+         </div>
+  
+</form>
+       
+           
+           
     <div class="row">
 
             <div class="col-sm-6 col-md-4">
@@ -67,7 +88,7 @@
 
     
     
-    
+    </div>
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
