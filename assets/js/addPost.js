@@ -1,4 +1,5 @@
  getLocation(); 
+
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
@@ -22,7 +23,7 @@ function add_post(){
  
     // Latitude: Latitude,Longitude:Longitude;
        $.post("app/helpers/addPost.php", {  Latitude: latitude,Longitude:longitude, text: text });
-     document.getElementById("contentblock").value = latitude;
+     //document.getElementById("contentblock").value = "leer";
+alert("");
 
-		
 }
