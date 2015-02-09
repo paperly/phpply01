@@ -1,7 +1,5 @@
 <?php
 
-echo "hallo welt";
-
-
+include 'app/view/index.php';
 
 ?>
