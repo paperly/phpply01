@@ -22,7 +22,7 @@ function add_post(){
  
     // Latitude: Latitude,Longitude:Longitude;
        $.post("app/helpers/addPost.php", {  Latitude: latitude,Longitude:longitude, text: text });
-     document.getElementById("contentblock").value = "leer";
+     document.getElementById("contentblock").value = latitude;
 
 		
 }
