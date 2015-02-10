@@ -15,6 +15,7 @@
     <!-- Bootstrap -->
     <link href="assets/style/bootstrap/bootstrap.css" rel="stylesheet">
     <link href="assets/style/style_basic.css" rel="stylesheet">
+
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <!-- Include jQuery Mobile stylesheets -->
 <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
@@ -56,9 +57,47 @@
     <textarea class="form-control" id="contentblock" rows="7"></textarea>
   </div>
   
+<div class="form-group">
+       <script>
+   $(document).on('change', '.btn-file :file', function() {
+  var input = $(this),
+      numFiles = input.get(0).files ? input.get(0).files.length : 1,
+      label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+  input.trigger('fileselect', [numFiles, label]);
+});
+
+$(document).ready( function() {
+    $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
+        
+        var input = $(this).parents('.input-group').find(':text'),
+            log = numFiles > 1 ? numFiles + ' files selected' : label;
+        
+        if( input.length ) {
+            input.val(log);
+        } else {
+            if( log ) alert(log);
+        }
+        
+    });
+});
+    </script>
+         <div class="input-group">
+                <span class="input-group-btn">
+                    <span class="btn btn-primary btn-file">
+                        Add Picture <input type="file" multiple="">
+                    </span>
+                </span>
+             
+                <input type="text" class="form-control" readonly="">
+                
+            </div>
+</div>
+         
    <div class="form-group">
-       <button onclick="add_post();" class="btn btn-default">Submit</button>
+       <button onclick="add_post();" class="btn btn-primary">Send</button>
+       <!--<button onclick="add_post();" class="btn btn-primary">Send</button>!-->
    </div>
+    
   
 </form>
        
