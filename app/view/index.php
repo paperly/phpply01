@@ -36,13 +36,23 @@
     </head>
     <body>
         <?php
-       
         $text = $_POST["text"];
         $latitude = $_POST["latitude"];
         $longitude = $_POST["longitude"];
-        if (!empty($text) &&!empty($latitude)&&!empty($longitude)) {
+        if (!empty($text) && !empty($latitude) && !empty($longitude)) {
             $sql = "INSERT INTO posts (content,latitude,longitude) VALUES ('$text','$latitude','$longitude');";
             mysql_query($sql);
+
+
+
+          
+// Add this product into the database now
+                $sql = mysql_query("INSERT INTO images (post_id) VALUES('1');");
+                $pid = mysql_insert_id();
+
+// Place image in the folder 
+                $newname = "$pid.jpg";
+                $dub = move_uploaded_file($_FILES['image']['tmp_name'], "user-data/$newname");
             
         }
         ?>
@@ -64,7 +74,7 @@
 
 
 
-            <form action="/" method="post">
+            <form action="/" method="post" enctype="multipart/form-data">
 
                 <div class="form-group">
                     <label for="content">Content</label>
@@ -99,7 +109,7 @@
                     <div class="input-group">
                         <span class="input-group-btn">
                             <span class="btn btn-primary btn-file">
-                                Add Picture <input type="file" multiple="">
+                                Add Picture <input type="file" name="image" multiple="">
                             </span>
                         </span>
 
@@ -120,90 +130,13 @@
 
             <div class="row">
 
-                <?php
-                echo load_posts();
-                ?>
+<?php
+echo load_posts();
+?>
 
             </div>
 
-            <div class="row">
 
-                <div class="col-sm-6 col-md-4">
-                    <div id="post" class="thumbnail">
-
-                        <div class="caption">
-                            <h6><a>near Munich</a></h6>
-                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                            <p><a  class="btn btn-primary" role="button">klick</a> <a href="#" class="btn btn-default" role="button">Print</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div id="post" class="thumbnail">
-
-                        <div class="caption">
-                            <h6><a>near Munich</a></h6>
-                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                            <p><a href="#" class="btn btn-primary" role="button">Share</a> <a href="#" class="btn btn-default" role="button">Print</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div id="post" class="thumbnail">
-
-                        <div class="caption">
-                            <h6><a>near Munich</a></h6>
-                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                            <p><a href="#" class="btn btn-primary" role="button">Share</a> <a href="#" class="btn btn-default" role="button">Print</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div id="post" class="thumbnail">
-
-                        <div class="caption">
-                            <h6><a>near Munich</a></h6>
-                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                            <p><a href="#" class="btn btn-primary" role="button">Share</a> <a href="#" class="btn btn-default" role="button">Print</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div id="post" class="thumbnail">
-
-                        <div class="caption">
-                            <h6><a>near Munich</a></h6>
-                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                            <p><a href="#" class="btn btn-primary" role="button">Share</a> <a href="#" class="btn btn-default" role="button">Print</a></p>
-                        </div>
-                    </div>
-                </div>  <div class="col-sm-6 col-md-4">
-                    <div id="post" class="thumbnail">
-
-                        <div class="caption">
-                            <h6><a>near Munich</a></h6>
-                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                            <p><a href="#" class="btn btn-primary" role="button">Share</a> <a href="#" class="btn btn-default" role="button">Print</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div id="post" class="thumbnail">
-
-                        <div class="caption">
-                            <h6><a>near Munich</a></h6>
-                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                            <p><a href="#" class="btn btn-primary" role="button">Share</a> <a href="#" class="btn btn-default" role="button">Print</a></p>
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-
-
-            </div>
 
 
 
