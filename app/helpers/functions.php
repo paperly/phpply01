@@ -20,7 +20,7 @@ $time = $wochentag . ", " . $time . " Uhr";
                 $html .= ' <div class="caption">';
                 $html .= '<h6><a>near Munich at '.$time.'</a></h6>';
                 $html .= '<p>'.$text.'</p>';
-                $html .= '<p><a href="#" class="btn btn-primary" role="button">Share</a> <a href="#" class="btn btn-default" role="button">Print</a></p>';
+           //     $html .= '<p><a href="#" class="btn btn-default" role="button">Print</a></p>';
                 $html .= '</div>';
                 $html .= '</div>';
                 $html .= '</div>';

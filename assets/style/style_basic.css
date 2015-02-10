@@ -26,3 +26,9 @@ input[readonly] {
   background-color: white !important;
   cursor: text !important;
 }
+
+
+  #latitude ,#longitude {
+   display: none;
+   color: #b92c28;
+}
