@@ -62,7 +62,15 @@
   
 </form>
        
-           
+           <div class="row">
+               
+               <?php
+               
+               echo load_posts();
+               
+               ?>
+               
+           </div>
            
     <div class="row">
 
