@@ -42,18 +42,38 @@
         if (!empty($text) && !empty($latitude) && !empty($longitude)) {
             $sql = "INSERT INTO posts (content,latitude,longitude) VALUES ('$text','$latitude','$longitude');";
             mysql_query($sql);
+            $postid = mysql_insert_id();
 
-
-
-          
 // Add this product into the database now
-                $sql = mysql_query("INSERT INTO images (post_id) VALUES('1');");
-                $pid = mysql_insert_id();
-
+           // $sql = mysql_query("INSERT INTO images (post_id) VALUES('1');");
+            //$pid = mysql_insert_id();
 // Place image in the folder 
-                $newname = "$pid.jpg";
-                $dub = move_uploaded_file($_FILES['image']['tmp_name'], "user-data/$newname");
-            
+           // $newname = "$pid.jpg";
+            // $dub = move_uploaded_file($_FILES['image']['tmp_name'], "user-data/$newname");
+//Loop through each file+
+            //Tests
+            //echo "coun:".count($_FILES['upload']['name']);
+            // echo $_FILES['upload']['name'][0];
+
+            for ($i = 0; $i < count($_FILES['upload']['name']); $i++) {
+                //Get the temp file path
+                $tmpFilePath = $_FILES['upload']['tmp_name'][$i];
+
+                //Make sure we have a filepath
+                if ($tmpFilePath != "") {
+                    //Setup our new file path
+                    $sql = mysql_query("INSERT INTO images (post_id) VALUES('".$postid."');");
+                    $pid = mysql_insert_id();
+                     $newname = "$pid.jpg";
+                    $newFilePath = "user-data/" . $newname;
+
+                    //Upload the file into the temp dir
+                    if (move_uploaded_file($tmpFilePath, $newFilePath)) {
+
+                        //Handle other code here
+                    }
+                }
+            }
         }
         ?>
 
@@ -89,27 +109,23 @@
                                     label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
                             input.trigger('fileselect', [numFiles, label]);
                         });
-
                         $(document).ready(function () {
                             $('.btn-file :file').on('fileselect', function (event, numFiles, label) {
-
                                 var input = $(this).parents('.input-group').find(':text'),
                                         log = numFiles > 1 ? numFiles + ' files selected' : label;
-
                                 if (input.length) {
                                     input.val(log);
                                 } else {
                                     if (log)
                                         alert(log);
                                 }
-
                             });
                         });
                     </script>
                     <div class="input-group">
                         <span class="input-group-btn">
                             <span class="btn btn-primary btn-file">
-                                Add Picture <input type="file" name="image" multiple="">
+                                Add Picture <input type="file" name="upload[]"  multiple="multiple" accept="image/*">
                             </span>
                         </span>
 
@@ -130,9 +146,9 @@
 
             <div class="row">
 
-<?php
-echo load_posts();
-?>
+                <?php
+                echo load_posts();
+                ?>
 
             </div>
 
