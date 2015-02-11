@@ -23,37 +23,51 @@ function load_posts() {
         $html .= '<div id="post" class="thumbnail">';
         $html .= ' <div class="caption">';
         $html .= ''
-                . '<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                .' <div id="carousel-'.$postid.'" class="carousel slide" data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">
-    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+  <li data-target="#carousel-'.$postid.'" data-slide-to="0" class="active"></li>';
+  for ($i = 1; $i <= $count; $i++) {
+    $html.=' <li data-target="#carousel-'.$postid.'" data-slide-to="'.$i.'"></li>';
+}
+
+$html.='
+    
   </ol>
 
   <!-- Wrapper for slides -->
-  <div class="carousel-inner" role="listbox">
-    <div class="item active">
-      <img src="user-data/1.jpg" alt="...">
-      <div class="carousel-caption">
-        ...
-      </div>
-    </div>
-    <div class="item">
-      <img src="user-data/17.jpg" alt="...">
-      <div class="carousel-caption">
-        ...
-      </div>
-    </div>
-    ...
+  <div class="carousel-inner" role="listbox">';
+        $pointer_first=0;
+    while ($row2 = mysql_fetch_object($ergebnis2)) {
+        $image = $row2->id.".jpg";
+        
+        if($pointer_first==0)
+        {
+            $html .= ' 
+       <div class="item active">';
+        }else{
+               $html .= ' 
+       <div class="item">';
+        }
+         $html .= ' 
+      <img src="user-data/'.$image.'" alt="">
+    </div>';
+         $pointer_first++;
+    }
+        
+        
+        
+  
+  $html .= ''
+                .'
   </div>
 
   <!-- Controls -->
-  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+  <a class="left carousel-control" href="#carousel-'.$postid.'" role="button" data-slide="prev">
     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
     <span class="sr-only">Previous</span>
   </a>
-  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+  <a class="right carousel-control" href="#carousel-'.$postid.'" role="button" data-slide="next">
     <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>
