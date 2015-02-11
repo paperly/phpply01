@@ -1,7 +1,7 @@
 <?php
 
 function load_posts() {
-    $limit = 5;
+    $limit = 2;
     $abfrage = "SELECT * FROM posts ORDER BY  posts.timestamp DESC  LIMIT 0,5";
     $ergebnis = mysql_query($abfrage);
     $html = "";
