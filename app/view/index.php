@@ -81,12 +81,12 @@
 
         <div class="container">
             <div class="page-header">
-                <h1>index.php <small>Timeline</small></h1>
+                <h1>paperly <small> around you</small></h1>
             </div>
 
 
             <div class="well well-lg">
-                <p>Hallo Hallo!! Hier bekommt ihr einen Überblick über alles</p>
+                <p>Find nice people and nice places 50 miles around you!</p>
             </div>
 
 

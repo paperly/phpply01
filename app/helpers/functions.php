@@ -23,7 +23,7 @@ function load_posts() {
         $html .= '<div id="post" class="thumbnail">';
         $html .= ' <div class="caption">';
         $html .= ''
-                .' <div id="carousel-'.$postid.'" class="carousel slide" data-ride="carousel">
+                .' <div id="carousel-'.$postid.'" class="carousel slide" data-interval="false" >
   <!-- Indicators -->
   <ol class="carousel-indicators">
   <li data-target="#carousel-'.$postid.'" data-slide-to="0" class="active"></li>';
@@ -74,7 +74,7 @@ $html.='
 </div>';
         
         $html .= '<h6><a>near Munich at ' . $time . '</a></h6>';
-         $html .= '<p> Count Bilder' . $count . '</p>';
+         
         $html .= '<p>' . $text . '</p>';
         //     $html .= '<p><a href="#" class="btn btn-default" role="button">Print</a></p>';
         $html .= '</div>';
