@@ -45,10 +45,10 @@
             $postid = mysql_insert_id();
 
 // Add this product into the database now
-           // $sql = mysql_query("INSERT INTO images (post_id) VALUES('1');");
+            // $sql = mysql_query("INSERT INTO images (post_id) VALUES('1');");
             //$pid = mysql_insert_id();
 // Place image in the folder 
-           // $newname = "$pid.jpg";
+            // $newname = "$pid.jpg";
             // $dub = move_uploaded_file($_FILES['image']['tmp_name'], "user-data/$newname");
 //Loop through each file+
             //Tests
@@ -62,15 +62,66 @@
                 //Make sure we have a filepath
                 if ($tmpFilePath != "") {
                     //Setup our new file path
-                    $sql = mysql_query("INSERT INTO images (post_id) VALUES('".$postid."');");
+                    $sql = mysql_query("INSERT INTO images (post_id) VALUES('" . $postid . "');");
                     $pid = mysql_insert_id();
-                     $newname = "$pid.jpg";
+                    $newname = "$pid.jpg";
                     $newFilePath = "user-data/" . $newname;
+                    
+                    
+                  
+
+
 
                     //Upload the file into the temp dir
                     if (move_uploaded_file($tmpFilePath, $newFilePath)) {
 
                         //Handle other code here
+                        
+                          ///small
+               
+                      $file        = $newFilePath;
+                  $target    = "klein/$newname"; 
+                  $max_width   = "300"; //Breite ändern 
+                  $max_height   = "300"; //Höhe ändern 
+                  $quality     = "10"; //Qualität ändern (max. 100) 
+                  $src_img     = imagecreatefromjpeg($file); 
+                  $picsize     = getimagesize($file); 
+                  $src_width   = $picsize[0]; 
+                  $src_height  = $picsize[1]; 
+                   
+                  if($src_width > $src_height) 
+                  { 
+                  if($src_width > $max_width) 
+                  { 
+                    $convert = $max_width/$src_width; 
+                    $dest_width = $max_width; 
+                    $dest_height = ceil($src_height*$convert); 
+                  } 
+                  else 
+                  { 
+                    $dest_width = $src_width; 
+                    $dest_height = $src_height; 
+                  } 
+                  } 
+                  else 
+                  { 
+                  if($src_height > $max_height) 
+                  { 
+                    $convert = $max_height/$src_height; 
+                    $dest_height = $max_height; 
+                    $dest_width = ceil($src_width*$convert); 
+                  } 
+                  else 
+                  { 
+                    $dest_height = $src_height; 
+                    $dest_width = $src_width; 
+                  } 
+                  } 
+                  $dst_img = imagecreatetruecolor($dest_width,$dest_height); 
+                  imagecopyresampled($dst_img, $src_img, 0, 0, 0, 0, $dest_width, $dest_height, $src_width, $src_height); 
+                  imagejpeg($dst_img, "$target", $quality); 
+                    // small
+                        
                     }
                 }
             }
