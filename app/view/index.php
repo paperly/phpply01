@@ -9,7 +9,7 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="white">
         <meta name="viewport" content="width=device-width">
         <link rel="manifest" href="manifest.json">
-
+    
         <title>ppply 01</title>
 
         <!-- Bootstrap -->
@@ -20,19 +20,30 @@
         <!-- Include jQuery Mobile stylesheets -->
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
 
-
+ <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
         <!-- Include the jQuery Mobile library -->
         <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="assets/js/bootstrap/bootstrap.min.js"></script>
         <script src="assets/js/addPost.js"></script>
+        <script src="assets/js/map.js"></script>
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+         <style>
+       #map-canvas {
+        height: 300px;
+        width: 300px;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+        
+        
     </head>
     <body>
         <?php
@@ -140,9 +151,14 @@
                 <p>Find nice people and nice places 50 miles around you!</p>
             </div>
 
+            <h1>karte <button type="button" onclick="loadScript();" class="btn btn-info">Karteladen</button>
+            </h1>
+        
+            <div class="col-xs-4">
+    <div id="map-canvas"></div>
+            </div>
 
-
-
+ 
 
 
             <form action="/" method="post" enctype="multipart/form-data">
@@ -153,26 +169,7 @@
                 </div>
 
                 <div class="form-group">
-                    <script>
-                        $(document).on('change', '.btn-file :file', function () {
-                            var input = $(this),
-                                    numFiles = input.get(0).files ? input.get(0).files.length : 1,
-                                    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-                            input.trigger('fileselect', [numFiles, label]);
-                        });
-                        $(document).ready(function () {
-                            $('.btn-file :file').on('fileselect', function (event, numFiles, label) {
-                                var input = $(this).parents('.input-group').find(':text'),
-                                        log = numFiles > 1 ? numFiles + ' files selected' : label;
-                                if (input.length) {
-                                    input.val(log);
-                                } else {
-                                    if (log)
-                                        alert(log);
-                                }
-                            });
-                        });
-                    </script>
+              
                     <div class="input-group">
                         <span class="input-group-btn">
                             <span class="btn btn-primary btn-file">
