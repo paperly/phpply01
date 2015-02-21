@@ -1,8 +1,8 @@
 <?php
 
-function load_posts() {
-    $limit = 2;
-    $abfrage = "SELECT * FROM posts ORDER BY  posts.timestamp DESC  LIMIT 0,5";
+function load_posts($limit) {
+  
+    $abfrage = "SELECT * FROM posts ORDER BY  posts.timestamp DESC  LIMIT 0,$limit";
     $ergebnis = mysql_query($abfrage);
     $html = "";
     while ($row = mysql_fetch_object($ergebnis)) {
@@ -19,8 +19,8 @@ function load_posts() {
         $ergebnis2 = mysql_query($abfrage2);
         $count = mysql_num_rows($ergebnis2);
 
-        $html .= '<div class="col-sm-6 col-md-4">';
-        $html .= '<div id="post" class="thumbnail">';
+        $html .= '<div id="post"  class="col-sm-6 col-md-4">';
+        $html .= '<div class="thumbnail">';
         $html .= ' <div class="caption">';
         $html .= ''
                 . ' <div id="carousel-' . $postid . '" class="carousel slide" data-interval="false" >
