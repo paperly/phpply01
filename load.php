@@ -6,7 +6,10 @@
 include "config/db.php";
 include "app/helpers/functions.php";
 
-        
-   echo load_posts(10);
+$page = $_GET["page"];        
+   echo load_posts($page);
 ?>
+    
+     
+		
 </div>

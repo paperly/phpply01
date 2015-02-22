@@ -1,8 +1,10 @@
 <?php
 
-function load_posts($limit) {
-  
-    $abfrage = "SELECT * FROM posts ORDER BY  posts.timestamp DESC  LIMIT 0,$limit";
+function load_posts($page) {
+    $limit = "10";
+    $first= $limit*($page-1);
+    $last = $first+$limit;
+    $abfrage = "SELECT * FROM posts ORDER BY  posts.timestamp DESC  LIMIT $limit OFFSET $first ";
     $ergebnis = mysql_query($abfrage);
     $html = "";
     while ($row = mysql_fetch_object($ergebnis)) {
@@ -72,7 +74,7 @@ function load_posts($limit) {
   </a>
 </div>';
 
-        $html .= '<h6><a>near Munich at ' . $time . '</a></h6>';
+        $html .= '<h6>Post id: '.$postid.' Pageid: '.$page.'<a>near Munich at ' . $time . '</a></h6>';
 
         $html .= '<p>' . $text . '</p>';
       //  $html .= '<p><a href="#" class="btn btn-default" role="button">Print</a></p>';

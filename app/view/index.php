@@ -28,7 +28,7 @@
         <script src="assets/js/bootstrap/bootstrap.min.js"></script>
         <script src="assets/js/addPost.js"></script>
         <script src="assets/js/map.js"></script>
-                <script type="text/javascript" src="assets/js/infinitescrollmin.js"></script>
+        <script src="assets/js/jquery.infinitescroll.js"></script>
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -185,46 +185,54 @@
 
             </form>
 
-            <div id="timeline-posts" class="row">
+            <div id="content" class="row">
 
                 <?php
-                echo load_posts(5);
+                
+                // 1 = page 1
+                echo load_posts(1);
                 ?>
 
             </div>
 
-  <nav id="page-nav">
-                                <a href="load.php?page=2"></a>
-                            </nav>
 
-   <script type="text/javascript" >
-    		$('#timeline-posts').infinitescroll({
-		 navSelector: '#page-nav', 
-                    nextSelector: '#page-nav a', 
-		itemSelector 	: "#timeline-posts",
-		debug		 	: true,
-		dataType	 	: 'html',
-        maxPage         : 3,
+                               <a id="next" href="load.php?page=2">next page?</a>
+                         
+
+   <script>
+
+
+            $('#content').infinitescroll({
+                loading: {
+    finishedMsg: "<em>Hallo hier ist ende</em>",
+          
+  },
+                navSelector: "#next:last",
+                nextSelector: "a#next:last",
+                itemSelector: "#content ",
+               // debug: true,
+                bufferPx     : 4000,
+                dataType: 'html',
+               // maxPage: 3,
 //		prefill			: true,
 //		path: ["http://nuvique/infinite-scroll/test/index", ".html"]
-		path: function(index) {
-			return "index" + index + ".html";
-		}
-		// behavior		: 'twitter',
-		// appendCallback	: false, // USE FOR PREPENDING
-		// pathParse     	: function( pathStr, nextPage ){ return pathStr.replace('2', nextPage ); }
-    }, function(newElements, data, url){
-    	//USE FOR PREPENDING
-    	// $(newElements).css('background-color','#ffef00');
-    	// $(this).prepend(newElements);
-    	//
-    	//END OF PREPENDING
+            //    path: function (index) {
+              //      return "index" + index + ".html";
+                //}
+                // behavior		: 'twitter',
+                // appendCallback	: false, // USE FOR PREPENDING
+                // pathParse     	: function( pathStr, nextPage ){ return pathStr.replace('2', nextPage ); }
+            }, function (newElements, data, url) {
+                //USE FOR PREPENDING
+                // $(newElements).css('background-color','#ffef00');
+                // $(this).prepend(newElements);
+                //
+                //END OF PREPENDING
 
 //    	window.console && console.log('context: ',this);
 //    	window.console && console.log('returned: ', newElements);
-    	
-    });
 
+            });
         </script>
 
 
