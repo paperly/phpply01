@@ -2,6 +2,10 @@ body{
     
 }
 
+p{
+    word-break:break-all;
+    word-wrap:break-word;
+}
 
 .btn-file {
   position: relative;

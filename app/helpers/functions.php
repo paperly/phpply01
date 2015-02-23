@@ -1,14 +1,17 @@
 <?php
 
 function load_posts($page) {
-    $limit = "10";
-    $first= $limit*($page-1);
-    $last = $first+$limit;
+    $limit = "5";
+    $first = $limit * ($page - 1);
+    $last = $first + $limit;
     $abfrage = "SELECT * FROM posts ORDER BY  posts.timestamp DESC  LIMIT $limit OFFSET $first ";
     $ergebnis = mysql_query($abfrage);
     $html = "";
     while ($row = mysql_fetch_object($ergebnis)) {
         $text = $row->content;
+      $text = wordwrap($text,7, "\n", true);;
+        
+        
         $date = strtotime($row->timestamp);
         $t = date('N', $date);
         $wochentage = array('Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag');
@@ -56,12 +59,14 @@ function load_posts($page) {
             $pointer_first++;
         }
 
+    $html .= '</div>';
 
-
+if($count>1){
+    
 
         $html .= ''
                 . '
-  </div>
+ 
 
   <!-- Controls -->
   <a class="left carousel-control" href="#carousel-' . $postid . '" role="button" data-slide="prev">
@@ -72,15 +77,16 @@ function load_posts($page) {
     <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>
-</div>';
+';
+}
+ $html .= '</div>';
+        $html .= '<h6>Post id: ' . $postid . ' Pageid: ' . $page . '<a>near Munich at ' . $time . '</a></h6>';
 
-        $html .= '<h6>Post id: '.$postid.' Pageid: '.$page.'<a>near Munich at ' . $time . '</a></h6>';
-
-        $html .= '<p>' . $text . '</p>';
-      //  $html .= '<p><a href="#" class="btn btn-default" role="button">Print</a></p>';
-      //  $html .= '<p><div class="col-xs-4">
-    //<div id="map-canvas"></div>
-       //     </div></p>';
+        $html .= '<p style="word-break:break-all;word-wrap:break-word">' . $text . '</p>';
+        //  $html .= '<p><a href="#" class="btn btn-default" role="button">Print</a></p>';
+        //  $html .= '<p><div class="col-xs-4">
+        //<div id="map-canvas"></div>
+        //     </div></p>';
 
 
         $html .= '</div>';

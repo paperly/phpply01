@@ -9,7 +9,7 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="white">
         <meta name="viewport" content="width=device-width">
         <link rel="manifest" href="manifest.json">
-    
+
         <title>ppply 01</title>
 
         <!-- Bootstrap -->
@@ -20,7 +20,7 @@
         <!-- Include jQuery Mobile stylesheets -->
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
 
- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
         <!-- Include the jQuery Mobile library -->
         <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -44,8 +44,8 @@
         padding: 0px
       }
     </style> !-->
-        
-        
+
+
     </head>
     <body>
         <?php
@@ -79,9 +79,9 @@
                     $pid = mysql_insert_id();
                     $newname = "$pid.jpg";
                     $newFilePath = "user-data/" . $newname;
-                    
-                    
-                  
+
+
+
 
 
 
@@ -89,52 +89,41 @@
                     if (move_uploaded_file($tmpFilePath, $newFilePath)) {
 
                         //Handle other code here
-                        
-                          ///small
-               
-                      $file        = $newFilePath;
-                  $target    = "klein/$newname"; 
-                  $max_width   = "300"; //Breite ändern 
-                  $max_height   = "300"; //Höhe ändern 
-                  $quality     = "10"; //Qualität ändern (max. 100) 
-                  $src_img     = imagecreatefromjpeg($file); 
-                  $picsize     = getimagesize($file); 
-                  $src_width   = $picsize[0]; 
-                  $src_height  = $picsize[1]; 
-                   
-                  if($src_width > $src_height) 
-                  { 
-                  if($src_width > $max_width) 
-                  { 
-                    $convert = $max_width/$src_width; 
-                    $dest_width = $max_width; 
-                    $dest_height = ceil($src_height*$convert); 
-                  } 
-                  else 
-                  { 
-                    $dest_width = $src_width; 
-                    $dest_height = $src_height; 
-                  } 
-                  } 
-                  else 
-                  { 
-                  if($src_height > $max_height) 
-                  { 
-                    $convert = $max_height/$src_height; 
-                    $dest_height = $max_height; 
-                    $dest_width = ceil($src_width*$convert); 
-                  } 
-                  else 
-                  { 
-                    $dest_height = $src_height; 
-                    $dest_width = $src_width; 
-                  } 
-                  } 
-                  $dst_img = imagecreatetruecolor($dest_width,$dest_height); 
-                  imagecopyresampled($dst_img, $src_img, 0, 0, 0, 0, $dest_width, $dest_height, $src_width, $src_height); 
-                  imagejpeg($dst_img, "$target", $quality); 
-                    // small
-                        
+                        ///small
+
+                        $file = $newFilePath;
+                        $target = "klein/$newname";
+                        $max_width = "300"; //Breite ändern 
+                        $max_height = "300"; //Höhe ändern 
+                        $quality = "10"; //Qualität ändern (max. 100) 
+                        $src_img = imagecreatefromjpeg($file);
+                        $picsize = getimagesize($file);
+                        $src_width = $picsize[0];
+                        $src_height = $picsize[1];
+
+                        if ($src_width > $src_height) {
+                            if ($src_width > $max_width) {
+                                $convert = $max_width / $src_width;
+                                $dest_width = $max_width;
+                                $dest_height = ceil($src_height * $convert);
+                            } else {
+                                $dest_width = $src_width;
+                                $dest_height = $src_height;
+                            }
+                        } else {
+                            if ($src_height > $max_height) {
+                                $convert = $max_height / $src_height;
+                                $dest_height = $max_height;
+                                $dest_width = ceil($src_width * $convert);
+                            } else {
+                                $dest_height = $src_height;
+                                $dest_width = $src_width;
+                            }
+                        }
+                        $dst_img = imagecreatetruecolor($dest_width, $dest_height);
+                        imagecopyresampled($dst_img, $src_img, 0, 0, 0, 0, $dest_width, $dest_height, $src_width, $src_height);
+                        imagejpeg($dst_img, "$target", $quality);
+                        // small
                     }
                 }
             }
@@ -162,7 +151,7 @@
                 </div>
 
                 <div class="form-group">
-              
+
                     <div class="input-group">
                         <span class="input-group-btn">
                             <span class="btn btn-primary btn-file">
@@ -188,52 +177,59 @@
             <div id="content" class="row">
 
                 <?php
-                
-                // 1 = page 1
+// 1 = page 1
                 echo load_posts(1);
                 ?>
 
             </div>
 
 
-                               <a id="next" href="load.php?page=2">next page?</a>
-                         
-
-   <script>
+            <a id="next" href="load.php?page=2">next page?</a>
 
 
-            $('#content').infinitescroll({
-                loading: {
-    finishedMsg: "<em>Hallo hier ist ende</em>",
-          
-  },
-                navSelector: "#next:last",
-                nextSelector: "a#next:last",
-                itemSelector: "#content ",
-               // debug: true,
-                bufferPx     : 4000,
-                dataType: 'html',
-               // maxPage: 3,
-//		prefill			: true,
-//		path: ["http://nuvique/infinite-scroll/test/index", ".html"]
-            //    path: function (index) {
-              //      return "index" + index + ".html";
-                //}
-                // behavior		: 'twitter',
-                // appendCallback	: false, // USE FOR PREPENDING
-                // pathParse     	: function( pathStr, nextPage ){ return pathStr.replace('2', nextPage ); }
-            }, function (newElements, data, url) {
-                //USE FOR PREPENDING
-                // $(newElements).css('background-color','#ffef00');
-                // $(this).prepend(newElements);
-                //
-                //END OF PREPENDING
+            <script>
 
-//    	window.console && console.log('context: ',this);
-//    	window.console && console.log('returned: ', newElements);
 
-            });
-        </script>
+                $('#content').infinitescroll({
+                    loading: {
+                        finished: undefined,
+                        finishedMsg: "",
+                        img: null,
+                        loadingImg: null,
+                        msg: null,
+                        msgText: "",
+                        selector: null,
+                        speed: 'fast',
+                        start: undefined
+
+                    },
+                    navSelector: "#next:last",
+                    nextSelector: "a#next:last",
+                    itemSelector: "#content ",
+                    // debug: true,
+                    bufferPx: 4000,
+                    dataType: 'html',
+                    // maxPage: 3,
+                    //		prefill			: true,
+                    //		path: ["http://nuvique/infinite-scroll/test/index", ".html"]
+                    //    path: function (index) {
+                    //      return "index" + index + ".html";
+                    //}
+                    // behavior		: 'twitter',
+                    // appendCallback	: false, // USE FOR PREPENDING
+                    // pathParse     	: function( pathStr, nextPage ){ return pathStr.replace('2', nextPage ); }
+                }, function (newElements, data, url) {
+                    //USE FOR PREPENDING
+                    // $(newElements).css('background-color','#ffef00');
+                    // $(this).prepend(newElements);
+                    //
+                    //END OF PREPENDING
+
+                    //    	window.console && console.log('context: ',this);
+                    //    	window.console && console.log('returned: ', newElements);
+
+                });
+            </script>
 
 
 
