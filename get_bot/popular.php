@@ -20,9 +20,9 @@ $ergebnis = mysql_query($abfrage);
 
 // while datenbank
 while ($row = mysql_fetch_object($ergebnis)) {
- echo "hallo";
+    echo "hallo";
 
-    $lat =  $row->lat;
+    $lat = $row->lat;
     $lng = $row->long;
     $distance = $row->distance;
     $minTimestamp = "";
@@ -36,8 +36,13 @@ while ($row = mysql_fetch_object($ergebnis)) {
     foreach ($result->data as $media) {
         $content = "<li>";
 
-        // output media
-        if ($media->type === 'image') {
+        $instagram_id = $media->id;
+        $sql2="SELECT * FROM `instagramimages` Where instagram_id = $instagram_id;";
+        $ergebnis2 = mysql_query($sql2);
+        $num_rows = mysql_num_rows($ergebnis2);
+
+// output media
+        if ($media->type === 'image'  ) {
 
             // image
             $image = $media->images->low_resolution->url;
@@ -51,7 +56,7 @@ while ($row = mysql_fetch_object($ergebnis)) {
         $longitude = $media->location->longitude;
 
         // Datenbank
-        if (!empty($media->caption->text)) {
+        if (!empty($media->caption->text) && empty($ergebnis2)) {
             $sql = "INSERT INTO posts (content,latitude,longitude) VALUES ('$posttext','$latitude','$longitude');";
             $b = mysql_query($sql);
             if ($b) {
@@ -61,8 +66,12 @@ while ($row = mysql_fetch_object($ergebnis)) {
                 // Picture Upload
 
                 $sql = mysql_query("INSERT INTO images (post_id) VALUES('" . $postid . "');");
-                $pid = mysql_insert_id();
-                $newname = "$pid.jpg";
+                $image_id = mysql_insert_id();
+           
+                $sql = "INSERT INTO instagramimages (instagram_id,image_id) VALUES ('$instagram_id','$image_id');";
+                mysql_query($sql);
+
+                $newname = "$image_id.jpg";
                 $newFilePath = "user-data/" . $newname;
                 $contents = file_get_contents($media->images->low_resolution->url);
                 setlocale(LC_TIME, 'de_DE');

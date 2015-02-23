@@ -93,9 +93,9 @@
 
                         $file = $newFilePath;
                         $target = "klein/$newname";
-                        $max_width = "300"; //Breite ändern 
+                        $max_width = "320"; //Breite ändern 
                         $max_height = "300"; //Höhe ändern 
-                        $quality = "10"; //Qualität ändern (max. 100) 
+                        $quality = "50"; //Qualität ändern (max. 100) 
                         $src_img = imagecreatefromjpeg($file);
                         $picsize = getimagesize($file);
                         $src_width = $picsize[0];

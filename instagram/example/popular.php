@@ -47,8 +47,8 @@ $result = $instagram->searchMedia($lat, $lng, $distance, $minTimestamp, $maxTime
                         if ($media->type === 'image') {
 
                             // image
-                            $image = $media->images->low_resolution->url;
-                            $content .= "<img class=\"media\" src=\"{$image}\"/>";
+                            //$image = $media->images->standard_resolution->url;
+                            //$content .= "<img class=\"media\" src=\"{$image}\"/>";
                         }
                         // create meta section
                         //$avatar = $media->user->profile_picture;
@@ -72,7 +72,7 @@ $result = $instagram->searchMedia($lat, $lng, $distance, $minTimestamp, $maxTime
                             $pid = mysql_insert_id();
                             $newname = "$pid.jpg";
                             $newFilePath = "user-data/" . $newname;
-                            $contents = file_get_contents($media->images->low_resolution->url);
+                            $contents = file_get_contents($media->images->standard_resolution->url);
                             setlocale(LC_TIME, 'de_DE');
                             $savename = strftime("%Y-%m-%d_%H-%M-%S");
 

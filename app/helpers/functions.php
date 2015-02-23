@@ -9,9 +9,7 @@ function load_posts($page) {
     $html = "";
     while ($row = mysql_fetch_object($ergebnis)) {
         $text = $row->content;
-      $text = wordwrap($text,7, "\n", true);;
-        
-        
+        $text = wordwrap($text, 7, "\n", true);
         $date = strtotime($row->timestamp);
         $t = date('N', $date);
         $wochentage = array('Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag');
@@ -27,20 +25,21 @@ function load_posts($page) {
         $html .= '<div id="post"  class="col-sm-6 col-md-4">';
         $html .= '<div class="thumbnail">';
         $html .= ' <div class="caption">';
-        $html .= ''
-                . ' <div id="carousel-' . $postid . '" class="carousel slide" data-interval="false" >
-  <!-- Indicators -->
+        $html .= ' <div id="carousel-' . $postid . '" class="carousel slide" data-interval="false" >';
+        if ($count > 1) {
+            $html .= '<!-- Indicators -->
   <ol class="carousel-indicators">
   <li data-target="#carousel-' . $postid . '" data-slide-to="0" class="active"></li>';
-        for ($i = 1; $i <= $count; $i++) {
-            $html.=' <li data-target="#carousel-' . $postid . '" data-slide-to="' . $i . '"></li>';
+            for ($i =1; $i <=$count; $i++) {
+                $html.=' <li data-target="#carousel-' . $postid . '" data-slide-to="' . $i . '"></li>';
+            }
+
+            $html.='
+    
+  </ol>';
         }
 
-        $html.='
-    
-  </ol>
-
-  <!-- Wrapper for slides -->
+        $html.='<!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">';
         $pointer_first = 0;
         while ($row2 = mysql_fetch_object($ergebnis2)) {
@@ -59,13 +58,13 @@ function load_posts($page) {
             $pointer_first++;
         }
 
-    $html .= '</div>';
+        $html .= '</div>';
 
-if($count>1){
-    
+        if ($count > 1) {
 
-        $html .= ''
-                . '
+
+            $html .= ''
+                    . '
  
 
   <!-- Controls -->
@@ -76,10 +75,9 @@ if($count>1){
   <a class="right carousel-control" href="#carousel-' . $postid . '" role="button" data-slide="next">
     <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
-  </a>
-';
-}
- $html .= '</div>';
+  </a>';
+        }
+        $html .= '</div>';
         $html .= '<h6>Post id: ' . $postid . ' Pageid: ' . $page . '<a>near Munich at ' . $time . '</a></h6>';
 
         $html .= '<p style="word-break:break-all;word-wrap:break-word">' . $text . '</p>';
