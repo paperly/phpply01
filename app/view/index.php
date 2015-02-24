@@ -178,6 +178,9 @@
 
                 <?php
 // 1 = page 1
+                
+                $longitude ="";
+                $latitude = "";
                 echo load_posts(1);
                 ?>
 
