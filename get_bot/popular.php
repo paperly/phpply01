@@ -20,7 +20,7 @@ $ergebnis = mysql_query($abfrage);
 
 // while datenbank
 while ($row = mysql_fetch_object($ergebnis)) {
-    echo "hallo";
+
 
     $lat = $row->lat;
     $lng = $row->long;
@@ -37,17 +37,16 @@ while ($row = mysql_fetch_object($ergebnis)) {
         $content = "<li>";
 
         $instagram_id = $media->id;
-        $sql2="SELECT * FROM `instagramimages` Where instagram_id = $instagram_id;";
+        $sql2 = "SELECT * FROM `instagramimages` Where instagram_id = '" . $instagram_id . "';";
         $ergebnis2 = mysql_query($sql2);
         $num_rows = mysql_num_rows($ergebnis2);
 
 // output media
-        if ($media->type === 'image'  ) {
-
-            // image
-            $image = $media->images->low_resolution->url;
-            $content .= "<img class=\"media\" src=\"{$image}\"/>";
-        }
+        //0   if ($media->type === 'image'  ) {
+        // image
+        //    $image = $media->images->low_resolution->url;
+        //  $content .= "<img class=\"media\" src=\"{$image}\"/>";
+        // }
         // create meta section
         //$avatar = $media->user->profile_picture;
         // $username = $media->user->username;
@@ -56,7 +55,7 @@ while ($row = mysql_fetch_object($ergebnis)) {
         $longitude = $media->location->longitude;
 
         // Datenbank
-        if (!empty($media->caption->text) && empty($ergebnis2)) {
+        if (!empty($media->caption->text) && $num_rows == 0) {
             $sql = "INSERT INTO posts (content,latitude,longitude) VALUES ('$posttext','$latitude','$longitude');";
             $b = mysql_query($sql);
             if ($b) {
@@ -67,7 +66,7 @@ while ($row = mysql_fetch_object($ergebnis)) {
 
                 $sql = mysql_query("INSERT INTO images (post_id) VALUES('" . $postid . "');");
                 $image_id = mysql_insert_id();
-           
+
                 $sql = "INSERT INTO instagramimages (instagram_id,image_id) VALUES ('$instagram_id','$image_id');";
                 mysql_query($sql);
 
