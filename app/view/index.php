@@ -10,7 +10,7 @@
         <meta name="viewport" content="width=device-width">
         <link rel="manifest" href="manifest.json">
 
-        <title>ppply 01</title>
+        <title>paperly</title>
 
         <!-- Bootstrap -->
         <link href="assets/style/bootstrap/bootstrap.css" rel="stylesheet">
@@ -134,12 +134,12 @@
 
         <div class="container">
             <div class="page-header">
-                <h1>paperly <small> around you</small></h1>
+                <div id="logo"><img src="assets/img/logo.png" /><small></small></div>
             </div>
 
 
             <div class="well well-lg">
-                <p>Find nice people and nice places 50 miles around you!</p>
+                <p>You see posts 25km around you!</p>
             </div>
 
 

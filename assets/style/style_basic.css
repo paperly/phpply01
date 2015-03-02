@@ -7,6 +7,13 @@ p{
     word-wrap:break-word;
 }
 
+#logo{
+    font-size: 50px;
+    color: #b92c28;
+    height: 100px;
+    
+}
+
 .btn-file {
   position: relative;
   overflow: hidden;
