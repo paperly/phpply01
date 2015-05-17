@@ -2,7 +2,7 @@
 
 function load_posts($page) {
     $limit = "5";
-    $distance ="25";
+    $distance ="250000000000";
     $first = $limit * ($page - 1);
     $last = $first + $limit;
     $abfrage = "SELECT id,timestamp,content,111.324 *  acos(sin(latitude) * sin(47.552236) + cos(latitude) * cos(47.552236) * cos(10.024076 - longitude)) AS distance FROM posts HAVING distance <= $distance ORDER BY  posts.timestamp DESC  LIMIT $limit OFFSET $first ";
