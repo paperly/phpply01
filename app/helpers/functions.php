@@ -1,11 +1,15 @@
 <?php
 
 function load_posts($page) {
-    $limit = "5";
-    $distance ="250000000000";
+    $limit = "20";
+    $distance ="5"; // in km
     $first = $limit * ($page - 1);
     $last = $first + $limit;
-    $abfrage = "SELECT id,timestamp,content,111.324 *  acos(sin(latitude) * sin(47.552236) + cos(latitude) * cos(47.552236) * cos(10.024076 - longitude)) AS distance FROM posts HAVING distance <= $distance ORDER BY  posts.timestamp DESC  LIMIT $limit OFFSET $first ";
+    
+    $mylatitude="48.161098";
+    $mylongitude="11.527798";
+    
+    $abfrage = "SELECT id,timestamp,content,111.324 *  acos(sin(latitude) * sin($mylatitude) + cos(latitude) * cos($mylatitude) * cos($mylongitude - longitude)) AS distance FROM posts HAVING distance <= $distance ORDER BY  posts.timestamp DESC  LIMIT $limit OFFSET $first ";
     $ergebnis = mysql_query($abfrage);
     $html = "";
     while ($row = mysql_fetch_object($ergebnis)) {
@@ -13,19 +17,21 @@ function load_posts($page) {
         $text = wordwrap($text, 7, "\n", true);
         $date = strtotime($row->timestamp);
         $t = date('N', $date);
+        $id = $row->id;
         //$wochentage = array('Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag');
         // $wochentage = array('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday');
         $wochentage = array('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun');
         $wochentag = $wochentage[$t - 1];
-        $time = date('d.m.Y H:i', $date);
-        $time = $wochentag . ", " . $time . " Uhr";
+        //$timedate = date('d.m.Y H:i', $date);
+        
+        $timedate = $wochentag . ", " . date('d.m.Y H:i', $date) . "";
         
         
         
         
     
     $atime = strtotime("now");
-    $diff = $atime - strtotime($date);
+    $diff = $atime - $date;
     $secs = $diff;
     $days = intval($secs / (60 * 60 * 24));
     $secs = $secs % (60 * 60 * 24);
@@ -40,16 +46,29 @@ function load_posts($page) {
     if (strlen($secs) == 1)
         $secs = "" . $secs;
     if ($hours == 0)
-        $time = "" . $mins . " m";
+        $timesince = "" . $mins . " m";
     else
-        $time = "" . $hours . " h";
-    if ($diff >= 86400) {
+        $timesince = "" . $hours . " h";
+    
+    
+    if ($diff <= 86400) {
         // $time = "am ".date('d.m.Y H:i', $date);
-        $time = "" . $time;
+        $time = $hours." h ago";
+    }
+ else {
+        $time = $timedate;
+    }
+     if ($diff <= 3600) {
+        // $time = "am ".date('d.m.Y H:i', $date);
+        $time = $mins." min ago";
+    }
+     if ($diff <= 60) {
+        // $time = "am ".date('d.m.Y H:i', $date);
+        $time = "now";
     }
         
         
-        
+      // $time = $time2;
         
         $postid = $row->id;
         $distance = round($row->distance, 3);
@@ -114,7 +133,7 @@ function load_posts($page) {
         }
         $html .= '</div>';
        // $html .= '<h6>Post id: ' . $postid . ' Pageid: ' . $page . '<a>near '.$distance.' km at ' . $time . '</a></h6>';
-        $html .= '<h6><a> '.$distance.' km away, ' . $time . '</a></h6>';
+        $html .= '<h6>Post id: ' . $id . '<a> '.$distance.' km away, ' . $time. '</a></h6>';
 
         $html .= '<p style="word-break:break-all;word-wrap:break-word">' . $text . '</p>';
         //  $html .= '<p><a href="#" class="btn btn-default" role="button">Print</a></p>';
